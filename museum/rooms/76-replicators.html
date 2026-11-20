@@ -1,0 +1,320 @@
+<!--meta {
+  "slug": "replicators", "order": 76, "title": "East wing IV: creatures that copy themselves",
+  "nav_label": "12 · Replicators",
+  "kicker": "East wing · Other laws of physics · Room 12",
+  "summary": "Chan's dividing creatures from the multi-kernel catalogue: a family tree followed cell by cell, how fast one cell fills a world, a replicator in three dimensions, and what happens when daughters inherit their rule.",
+  "expect": {"C072": "OBSERVED", "C073": "OBSERVED", "C074": "OBSERVED", "C075": "OBSERVED",
+             "C090": "OBSERVED", "C091": "OBSERVED", "C092": "OBSERVED",
+             "C110": "OBSERVED", "C111": "OBSERVED",
+             "C119": "OBSERVED", "C120": "OBSERVED", "C121": "OBSERVED",
+             "C122": "OBSERVED", "C123": "OBSERVED", "C124": "OBSERVED",
+             "C125": "OBSERVED", "C126": "OBSERVED", "C127": "OBSERVED", "C128": "OBSERVED"}
+} -->
+<h1>Creatures that copy themselves</h1>
+<p class="lede">Give Lenia several kernels instead of one and some creatures stop being
+single animals. They grow, pinch in two, and each half grows again. Bert Chan found these
+while searching multi-kernel rules and named them plainly in his catalogue: <em>replicator</em>,
+<em>division too slow</em>, <em>division well</em>, <em>division uncontrolled</em>. We ran them
+in our own engine and asked three questions: who descends from whom, how fast can a world
+fill up, and does it work in three dimensions?</p>
+
+<h2>A family tree</h2>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G029-family-tree/family-tree.gif}}" width="320" height="320" loading="lazy"
+       alt="One cell divides again and again until about eighty cells cover the world, each coloured by its ancestry.">
+  <figcaption><strong>One cell, 2000 time units.</strong> Chan's <em>division well</em>
+  (found/213 #84) on a 384² world. Colour is inherited: a daughter takes her mother's hue,
+  shifted slightly at random, so families share colours.
+  {{src:research/gallery/exhibits/G029-family-tree/family-tree.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G029-family-tree/provenance.json|provenance}}.</figcaption>
+</figure>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G029-family-tree/tree.png}}" width="720" height="480" loading="lazy"
+       alt="A family tree branching from one founder into 81 living cells, with the cell count below rising slowly and then steadily.">
+  <figcaption><strong>Who came from whom.</strong> Each line is a cell; a fork is a division; a
+  dot is a cell whose track ended. Below: the number of cells.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> For the first few hundred time units the founder
+  and her first daughters wander and divide rarely. Then the count climbs steadily as the
+  world fills with membrane-wrapped cells.</p>
+  <p class="open"><strong>What the ledger says.</strong> 135 divisions, 14 generations, 81
+  cells at the end, in one run {{claim:C072}}. A cell here is a peak of the blurred field;
+  the tracker cannot tell a cell that merged from one that faded.</p>
+</div>
+
+<h2>How fast one cell fills the world</h2>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G030-four-growth-rates/ladder.gif}}" width="384" height="432" loading="lazy"
+       alt="Four worlds start from the same cell: the first still has three cells while the other three fill up, the last with a lattice of dots between the cells.">
+  <figcaption><strong>Same cell, four rules.</strong> Each rule moves every number a fraction
+  λ of the way from <em>division well</em> to <em>division uncontrolled</em>. The bar is the
+  fraction of the world covered.
+  {{src:research/gallery/exhibits/G030-four-growth-rates/ladder.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G030-four-growth-rates/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> At λ 0 there are still three cells at t 600.
+  At λ 1 the world is full by t 100, and the gaps between cells fill with a fine lattice of
+  dots.</p>
+  <p class="open"><strong>What the ledger says.</strong> Time to cover half the world falls
+  about fifteen-fold, from 1175–1530 time units to 85–95, and the median never rises along the
+  way {{claim:C073}}. There is no single switch between a healthy and a runaway rule: the
+  growth rate rises smoothly.</p>
+</div>
+
+<h2>A replicator in three dimensions</h2>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G031-replicating-in-3d/replicator3d.gif}}" width="320" height="320" loading="lazy"
+       alt="A 3-D blob buds into a chain, the chain breaks into separate bodies, and the bodies multiply until they pack the box.">
+  <figcaption><strong>Budding in a box.</strong> Chan's <em>self-replicate... unstable</em>
+  (found/312 #21) in a 96³ world that wraps around. Each body has its own colour.
+  {{src:research/gallery/exhibits/G031-replicating-in-3d/replicator3d.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G031-replicating-in-3d/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> The blob stretches into a chain of beads, the
+  beads separate, and each grows and buds again until the box is packed.</p>
+  <p class="open"><strong>What the ledger says.</strong> One body becomes about fifty by t 300 in the largest box;
+  it multiplies at two timesteps and in three box sizes {{claim:C074}}. Its catalogue neighbour <em>divide</em>
+  (found/312 #7) splits into four bodies and then, at the catalogue timestep, stops; at half the
+  timestep a fifth body appears {{claim:C075}}.</p>
+</div>
+
+<h2>When daughters inherit their rule</h2>
+<p>Copying is half of evolution. The other half is copies that differ. So we changed the
+physics, and this part of the room is a <em>modified rule</em> of ours, not Chan's. Every bit
+of matter now carries a number, its genome, between 0 (<em>division well</em>, blue) and 1
+(<em>division uncontrolled</em>, red), and the rule at each point is the rule for its genome.
+New matter inherits the genome of the matter around it, and every ten time units a faint
+random smear nudges genomes up or down.</p>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G045-selection-for-faster-division/evolve.gif}}" width="384" height="260" loading="lazy"
+       alt="Two worlds of dividing cells coloured blue to red by genome; on the left red patches with a dot lattice appear and the mean-genome line climbs above the grey neutral line.">
+  <figcaption><strong>Same start, same mutations.</strong> Left: the genome sets the rule.
+  Right: the rule is fixed and the genome is only a marker. The lines at the bottom are the
+  mean genome of each world.
+  {{src:research/gallery/exhibits/G045-selection-for-faster-division/evolve.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G045-selection-for-faster-division/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> On the left, warmer cells spread and red patches
+  appear, with the dot lattice of the runaway rule around them. On the right the colours wander
+  but stay cool.</p>
+  <p class="open"><strong>What the ledger says.</strong> From 0.3 the mean genome reaches
+  0.47–0.55 when it matters and 0.36–0.43 when it is only a marker, in all four paired seeds
+  {{claim:C090}}. From 0.7, where growth speed has levelled off, the gap is only 0.03–0.06
+  {{claim:C091}}. Nothing here rewards speed. Faster dividers just leave more descendants.</p>
+</div>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G046-the-fast-genome-invades/invasion.gif}}" width="512" height="346" loading="lazy"
+       alt="Blue well tissue on the left and red uncontrolled tissue on the right; red and pink spreads into the blue half from both borders while the red half stays red.">
+  <figcaption><strong>Tissue against tissue.</strong> Grown <em>well</em> tissue meets grown
+  <em>uncontrolled</em> tissue; the world wraps, so there are two borders.
+  {{src:research/gallery/exhibits/G046-the-fast-genome-invades/invasion.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G046-the-fast-genome-invades/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="open"><strong>What the ledger says.</strong> By t 1000 the well half's mean genome has
+  risen from 0 to 0.34–0.38, while the uncontrolled half has stayed at 0.98–0.99, in three seeds
+  {{claim:C092}}. Some of the spread is blending where the tissues touch.</p>
+</div>
+
+<h2>How far does it go?</h2>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G060-from-well-behaved-to-runaway/long.gif}}" width="320" height="377" loading="lazy"
+       alt="A large world fills with blue cells that warm to pink and red over 6000 time units, with red patches of dot lattice; the mean-genome line climbs well above the grey neutral line.">
+  <figcaption><strong>6000 time units of evolution.</strong> One cell at genome 0.1 in a world
+  four times larger. The grey line is the same run with the genome as a neutral marker.
+  {{src:research/gallery/exhibits/G060-from-well-behaved-to-runaway/long.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G060-from-well-behaved-to-runaway/provenance.json|provenance}}.</figcaption>
+</figure>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G061-how-far-selection-goes/genome-curves.png}}" width="720" height="233" loading="lazy"
+       alt="Three panels of mean genome against time: coral selected lines climb from 0.1 to about 0.67 and from 0.3 to about 0.5, grey neutral lines stay lower, and runs started at 0.7 stay near 0.7.">
+  <figcaption><strong>Every evolution run.</strong> Coral: the genome sets the rule. Grey: it is
+  only a marker.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> The world turns from blue to warm within the
+  first thousand time units, then keeps warming more and more slowly.</p>
+  <p class="open"><strong>What the ledger says.</strong> From 0.1 the genome reaches 0.65–0.69,
+  against 0.31–0.35 for the marker {{claim:C110}}. Runs that started at 0.7 stay at
+  0.68–0.69, so selection seems to level off near 0.7 from both sides {{claim:C111}}. That is
+  about where faster division stops paying (Chan's <em>well</em> → <em>uncontrolled</em> speed
+  curve flattens). These cells did not evolve all the way to runaway, at least in 6000 time
+  units.</p>
+</div>
+
+<h2>A drug against fast dividers</h2>
+<p>Cancer doctors face a version of this room's problem. Chemotherapy hits fast-dividing cells
+hardest, so a tumour under constant treatment is a selection experiment for slow, tolerant
+cells. <em>Adaptive therapy</em> (Gatenby and colleagues) proposes pausing the drug so that
+sensitive cells survive and crowd the resistant ones out; a small pilot trial in prostate cancer
+looked promising. We built a toy version. A GenomeLenia “tumour” grows from one cell at genome
+0.7. Then a drug removes matter in proportion to its genome: red, fast matter is hit hard,
+blue, slow matter hardly at all. One copy gets no drug, one gets the drug all the time, one
+gets it adaptively: off when the tumour has halved, on again when it is back to its starting
+size.</p>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G067-drug-against-fast-dividers/therapy.gif}}" width="820" height="425" loading="lazy"
+       alt="Three square worlds of dividing cells. Left, with no drug, warm red tissue fills the world. Middle, under constant drug, the tissue collapses to a few patches that turn blue and then vanish. Right, under on-off dosing, the tissue shrinks and regrows, turning blue, and is still there at the end. A burden chart runs underneath.">
+  <figcaption><strong>No drug, constant drug, adaptive drug</strong> (drug strength κ 0.5, seed
+  0). Colour is the genome (blue slow and drug-tolerant, red fast and drug-sensitive),
+  brightness the matter. Shading in the chart: the adaptive drug is on.
+  {{src:research/gallery/exhibits/G067-drug-against-fast-dividers/therapy.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G067-drug-against-fast-dividers/provenance.json|provenance}}.</figcaption>
+</figure>
+<figure class="evidence">
+  <img src="{{asset:research/gallery/exhibits/G068-cure-or-control/therapy-runs.png}}" width="1485" height="682" loading="lazy"
+       alt="Eight panels. Top row: tumour burden against time for four drug strengths; grey untreated lines sit high, orange constant lines often drop to zero at higher strengths, blue adaptive lines wander around the starting burden and cross the progression line. Bottom row: the resistant share climbs to one in most treated runs and creeps up slowly in untreated runs.">
+  <figcaption><strong>Every run.</strong> Four seeds, four drug strengths, three schedules.
+  {{src:research/gallery/exhibits/G068-cure-or-control/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> Under constant dosing a strong drug wipes the
+  tumour out before slow cells can take over; a weaker drug leaves a blue, slow tumour that
+  regrows. The adaptive tumour never dies: each pause lets it recover, and it turns blue
+  too.</p>
+  <p class="int"><strong>What the ledger says.</strong> Constant dosing eradicates the tumour in
+  0, 1, 2 and 4 of 4 seeds as the drug gets stronger, and every survivor ends up mostly slow
+  {{claim:C119}}. In 16 seed-and-dose pairs adaptive dosing did better twice, worse ten times
+  and tied four times {{claim:C120}}. Even with no drug, slow genomes are not driven out of a
+  full tumour {{claim:C121}}.</p>
+  <p class="open"><strong>Why it matters, and what it does not show.</strong> Adaptive therapy
+  rests on one assumption: in a crowded tumour, sensitive cells out-compete resistant ones.
+  Our toy lacks that competition (once the world is full, dividing fast buys nothing), and
+  without it the pauses only help the tumour. That matches the theory: Gatenby's models
+  assume resistant cells are less fit than sensitive ones when they compete. It is also why
+  adaptive therapy has been tried in cancers that standard treatment cannot cure, such as
+  metastatic prostate cancer, rather than where a strong drug can wipe the tumour out. It says nothing about any real cancer or drug: this is a toy of our own design,
+  an <em>analogy</em> in the language of the {{page:so-what-evolution|So what? wing}}.</p>
+</div>
+
+<h3>Giving resistance a price</h3>
+<p>So we added the missing competition. In a crowd, slow matter now slowly decays, at a rate
+proportional to how slow it is and how full its neighbourhood is, and fast matter grows into
+the space it frees. This is the cost of resistance that adaptive therapy depends on. We tried
+two strengths of cost, reran every dose, and ran the weakest dose three times longer.</p>
+<figure class="evidence">
+  <img src="{{asset:research/gallery/exhibits/G069-a-price-for-resistance/cost.png}}" width="1375" height="924" loading="lazy"
+       alt="Six panels in three rows: no cost, cost 0.1, cost 0.3. Left column, tumour burden over 6000 time units: without the cost, blue adaptive and orange constant lines climb past the progression line; with the cost, blue adaptive lines hover just under the starting burden and orange constant lines sit flat near 0.17 or drop to zero. Right column, resistant share: orange lines go to one in every row; with cost 0.3 the blue lines mostly stay near zero.">
+  <figcaption><strong>The same weak drug, with and without a price for resistance.</strong>
+  Drug strength κ 0.3, four seeds per colour, 6000 time units.
+  {{src:research/gallery/exhibits/G069-a-price-for-resistance/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> With the price, untreated tumours stay red. Under
+  constant dosing the tumour shrinks to a small blue remnant (or vanishes) and stays there.
+  Under adaptive dosing it hovers just below its starting size, and with the stronger price it
+  stays mostly red: still sensitive to the drug, thousands of time units later.</p>
+  <p class="int"><strong>What the ledger says.</strong> The price keeps untreated tumours almost
+  free of slow matter {{claim:C122}}. With it, no tumour progressed under either schedule, and
+  constant dosing eradicated far more tumours than adaptive dosing {{claim:C123}}. At the weak
+  dose, constant dosing left a remnant that was entirely resistant; adaptive dosing held a
+  tumour about four times larger that, with the stronger price, stayed sensitive, on 62–93% of
+  the drug {{claim:C124}}.</p>
+  <p class="open"><strong>So who won?</strong> The price turned on adaptive therapy's mechanism:
+  competition did keep resistance down. It did not produce adaptive therapy's payoff, a later
+  relapse, because in our toy nothing relapsed. The resistant remnant under constant dosing
+  just sat there, small, for 6000 time units. In patients the case for adaptive therapy is that
+  the resistant remnant eventually regrows and kills; a toy where it doesn't will always
+  favour the bigger hammer. So we took the drug away, varied the pauses, and brought in a
+  second drug.</p>
+</div>
+
+<h3>Off the drug</h3>
+<figure class="evidence">
+  <img src="{{asset:research/gallery/exhibits/G070-off-the-drug/holiday.png}}" width="1375" height="924" loading="lazy"
+       alt="Six panels in three rows: no cost, cost 0.1, cost 0.3. Green lines show tumours whose drug stopped at time 2000, dashed orange lines the same tumours with the drug kept on. With no cost the green lines jump to the top at once. With cost 0.1 they sit low until 2000, then shoot up to more than twice the starting burden within a few hundred time units, while their resistant share falls back toward zero. With cost 0.3 the green lines stay at the bottom and end before 4300.">
+  <figcaption><strong>Stop the drug at 2000 time units.</strong> Same weak drug (κ 0.3), four
+  seeds per row.
+  {{src:research/gallery/exhibits/G070-off-the-drug/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> With a mild price on resistance, the remnant comes
+  roaring back once the drug stops, but it comes back red: fast, sensitive cells take the space
+  again. With a stiff price, the remnant never recovers and fades away with no drug at all.</p>
+  <p class="int"><strong>What the ledger says.</strong> At cost 0.1 every remnant was back at its
+  starting size 50–500 time units after the drug stopped, and by the end only 1–20% of it was
+  resistant. At cost 0.3 both remnants died out on their own, 615 and 2235 time units after the
+  last dose {{claim:C125}}. So this toy can relapse after all, and the relapse is a tumour the
+  same drug can hit again.</p>
+</div>
+
+<h3>How far to push</h3>
+<figure class="evidence">
+  <img src="{{asset:research/gallery/exhibits/G071-how-far-to-push/thresholds.png}}" width="1485" height="660" loading="lazy"
+       alt="Eight panels in four columns, one per pause threshold of 0.3, 0.5, 0.7 and 0.9 times the starting burden. Top row: burden over 4000 time units; the lower the threshold, the lower the band the lines move in. Bottom row: resistant share; at 0.3 most lines climb to one, at 0.5 one does, at 0.7 and 0.9 they stay near zero.">
+  <figcaption><strong>Pause when the tumour reaches the orange line, resume at its starting
+  size.</strong> Cost 0.3, drug A κ 0.3, four seeds.
+  {{src:research/gallery/exhibits/G071-how-far-to-push/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="int"><strong>What the ledger says.</strong> Push the tumour down to 30% before
+  pausing and it stays small, about 0.4–0.5 of its starting size, but three of four end entirely
+  resistant. Pause at 70% or 90% and it stays sensitive but almost full size. Pausing at half,
+  the rule used in the prostate-cancer pilot, sits in between: about 0.7 of the starting size and
+  three of four still sensitive {{claim:C126}}. Small or sensitive, but not both.</p>
+</div>
+
+<h3>A second drug</h3>
+<p>Resistance to our drug means being slow. So we invented drug B, which hits slow matter and
+spares fast matter: the mirror image. Borrowing from pest control, Gatenby, Brown and Vincent
+(2009) called this an <em>evolutionary double bind</em>: resisting one threat leaves you
+exposed to the other. We tried drug B alone, both drugs at once, swapping every 100 time units, and
+<em>steering</em>: give drug A, and switch to drug B only while the tumour is mostly
+resistant.</p>
+<figure class="vitrine">
+  <img src="{{asset:research/gallery/exhibits/G073-two-drugs-steering/bind.gif}}" width="820" height="425" loading="lazy"
+       alt="Three square worlds side by side. Left, drug A only: the tumour is knocked down to two or three large round cells, which turn blue and keep dividing. Middle, drug B only: red tissue fills the world. Right, steering: the same few cells as on the left; when they turn blue a short pulse of drug B is given, the blue cells vanish and the last grey cell dies soon after. A burden chart runs underneath with one narrow shaded band where drug B was given.">
+  <figcaption><strong>Drug A only, drug B only, steering</strong> (cost 0.3, seed 0). Colour is the
+  genome (blue slow, red fast), brightness the matter. Shading in the chart: the steering arm
+  gives drug B.
+  {{src:research/gallery/exhibits/G073-two-drugs-steering/bind.mp4|Full video}} ·
+  {{src:research/gallery/exhibits/G073-two-drugs-steering/provenance.json|provenance}}.</figcaption>
+</figure>
+<figure class="evidence">
+  <img src="{{asset:research/gallery/exhibits/G072-two-drugs/bind.png}}" width="1375" height="616" loading="lazy"
+       alt="A grid of markers: five schedules by two conditions, four seeds each. Without a cost of resistance almost every marker is an orange dot for progressed, except one row of rings and a single cross for both drugs together. With cost 0.3, drug A only has two crosses and two rings, drug B only four orange dots, both drugs four crosses, alternating three crosses and a dot, and steering four crosses with drug B used 1% of the time.">
+  <figcaption><strong>Every two-drug run.</strong> X: eradicated; dot: progressed; ring: held.
+  {{src:research/gallery/exhibits/G072-two-drugs/provenance.json|provenance}}.</figcaption>
+</figure>
+<div class="label">
+  <p class="obs"><strong>What you see.</strong> Drug A knocks the tumour down to a few large
+  cells, and they turn blue: slow, and safe from drug A. Drug B on its own lets the red tissue
+  fill the world. Steering gives drug B for a moment once the cells turn blue; the blue cells
+  vanish, and drug A finishes off the last one.</p>
+  <p class="int"><strong>What the ledger says.</strong> Without a price on resistance, no schedule
+  cured more than one tumour in four, and every one-drug-at-a-time schedule progressed. With the
+  price, both drugs together cured 4 of 4, alternation 3 of 4, drug A alone 2 of 4, drug B alone
+  none, and steering 4 of 4 {{claim:C127}}. Steering cured the two tumours drug A could not
+  finish with drug B on for just 14 and 66 time units, under 2% of the run {{claim:C128}}.</p>
+  <p class="open"><strong>What this does and does not show.</strong> In this toy, the
+  double bind works only when resistance is costly, the same condition Gatenby and colleagues
+  put at its heart. And a little of the second drug, at the right moment, does as well as
+  giving both drugs all the time, which in a patient would mean twice the side effects. Drug B
+  is our invention: real drugs with this mirror-image property are rare and a subject of active
+  research (Acar and colleagues, 2020). This is an analogy, not a treatment plan.</p>
+</div>
+
+<h2>Sources</h2>
+<ul>
+  <li>{{src:research/experiments/REPLICATORS/REPLICATORS.md|Replicator notes}}</li>
+  <li>{{src:research/experiments/REPLICATORS/tree.py|The cell tracker}},
+      {{src:research/experiments/REPLICATORS/growth.jsonl|the growth runs}} and
+      {{src:research/experiments/REPLICATORS/replicate3d.jsonl|the 3-D runs}}</li>
+  <li>{{src:research/experiments/REPLICATORS/genome.py|GenomeLenia}},
+      {{src:research/experiments/REPLICATORS/evolve.jsonl|the evolution runs}} and
+      {{src:research/experiments/REPLICATORS/invasion.jsonl|the invasion runs}}</li>
+  <li>{{src:research/experiments/REPLICATORS/therapy.py|The therapy toy}} and
+      {{src:research/experiments/REPLICATORS/therapy.jsonl|every therapy run}};
+      with a cost of resistance: {{src:research/experiments/REPLICATORS/therapy_cost.jsonl|all doses}} and
+      {{src:research/experiments/REPLICATORS/therapy_long.jsonl|the long runs}};
+      round 3 (holidays, thresholds, two drugs): {{src:research/experiments/REPLICATORS/therapy2.py|the code}} and
+      {{src:research/experiments/REPLICATORS/therapy2.jsonl|every run}}</li>
+  <li>Gatenby, Brown &amp; Vincent (2009) <a href="https://doi.org/10.1158/0008-5472.CAN-09-1354">Cancer Res. 69:7499</a> ·
+      Basanta, Gatenby &amp; Anderson (2012) <a href="https://doi.org/10.1021/mp200458e">Mol. Pharm. 9:914</a> ·
+      Acar et al. (2020) <a href="https://doi.org/10.1038/s41467-020-15596-z">Nat. Commun. 11:1923</a> ·
+      Zhang et al. (2017) <a href="https://doi.org/10.1038/s41467-017-01968-5">Nat. Commun. 8:1816</a></li>
+</ul>

@@ -1,0 +1,135 @@
+# REPLICATORS: creatures that make copies of themselves (2026-11-14)
+
+Bobby asked for fun, provocative finds. The east wing (WINGS, C064–C071) already shows
+Gray-Scott spots that divide and Flow-Lenia ring cells that split by mass. This round looks
+inside Lenia itself: Chan's own "found" catalogue (pinned upstream `found/*.json`) has
+multi-kernel creatures whose names say what they do: *replicator*, *egg*, *division too slow*,
+*division well*, *division uncontrolled*, *divide*, *self-replicate... unstable*. Nothing here is
+a new species and none of these creatures is ours. What is ours: we follow every cell of a
+dividing colony and draw its family tree, we measure how fast one cell fills a world as the
+rule slides from Chan's "well" to his "uncontrolled", and we film a replicator in three
+dimensions.
+
+All runs use `../WINGS/nd_lenia.py` (checked against `alm.lenia` to 1e-12, C069).
+
+## What we found
+
+**A family tree (C072, G029).** One cell of *division well* (found/213 #84: one channel, three
+kernels, R 15) on a 384² torus becomes 81 cells in 2000 time units: 135 divisions, 14
+generations deep, and 51 cells whose track ended early (merged into a neighbour or faded: the
+tracker does not tell which).
+Each cell is followed frame by frame (`tree.py`); its colour is a neutral heritable marker that
+drifts a little at every division, so sisters look alike and distant cousins do not.
+
+**How fast a cell fills the world (C073, G030).** Chan's *division well* and *division
+uncontrolled* (#83) have the same kernels with slightly different rings, centres and widths.
+Slide every number along the straight line between them (λ 0 → 1) and start each world from the
+same well cell. The time to cover half of a 256² torus falls from 1175–1530 time units at λ 0 to
+85–95 at λ 1, about fifteen-fold, and the 3-seed median never rises along the way. Half the
+timestep gives 1155, 155 and 90 at λ 0, 0.5 and 1. "Well" leaves about a third of the world
+empty (plateau occupancy 0.59–0.66); "uncontrolled" packs it to 0.99 and fills the gaps between
+cells with a fine lattice of dots. There is no switch: the growth rate rises smoothly.
+
+**A replicator in 3-D (C074, G031).** found/312 #21, which Chan named *self-replicate...
+unstable* (one channel, two kernels, R 15, 3-D), buds into 4 bodies by t 100 in a 64³ box and
+into 53 bodies by t 320 in a 96³ box, while its mass grows about 120-fold until the box is
+packed with foam. **One becomes four (C075).** Its neighbour found/312 #7, *divide*, splits
+into four bodies and stays at four in 64³ and 96³ boxes, but at half the timestep a fifth
+appears after t 100.
+
+## Round 2: heredity and selection (C090–C092, G045–G046)
+
+**GenomeLenia** (`genome.py`, our modified rule). Every pixel's matter carries a number g, its
+position on the line from *division well* (g 0) to *division uncontrolled* (g 1), and the rule
+at that pixel is the rule at g: each kernel's potential is mixed as (1 − g)·well + g·uncontrolled,
+and μ, σ are interpolated. Matter that persists keeps its g; newly grown matter inherits the
+mass-weighted g of its neighbourhood (2-px Gaussian). Optional mutation adds a small smooth
+noise field to g every 10 time units. At g ≡ 0 or 1 this is exactly Chan's rule (10⁻¹²). A
+*neutral* arm fixes the rule and keeps g only as a marker, with the same mutations.
+
+**Selection for faster division (C090, C091, G045).** From one cell at g 0.3, with mutation,
+the mean genome rises to 0.47–0.55 in 2000 time units; with g as a neutral marker it reaches
+0.36–0.43. All four paired seeds end higher when the genome matters. Started at g 0.7, where the
+growth speed has nearly levelled off (C073), the gap shrinks to 0.03–0.06. Nobody asked these
+cells to grow faster. Faster dividers simply leave more descendants.
+
+**The fast genome invades (C092, G046).** Grown *well* tissue placed against grown
+*uncontrolled* tissue: by t 1000 the uncontrolled genome has spread into the well half (mean
+0.34–0.38 there) while the uncontrolled half stays at 0.98–0.99, in 3 seeds.
+
+A first inheritance rule that re-averaged *all* matter each step was dropped before the runs
+above: it diffused genomes through the dot lattice like heat.
+
+## Round 3: how far selection goes (C110–C111, G060–G061)
+
+On a 512² world for 6000 time units, a single cell at genome 0.1 evolves to 0.65–0.69 (the
+neutral marker reaches 0.31–0.35). The climb is fast for the first 1000 time units and then
+slows. Runs that started at 0.7 stayed at 0.68–0.69. Selection seems to level off near 0.7,
+where the growth-speed curve of C073 flattens: past that point, faster division barely pays.
+The cells did not evolve all the way to *uncontrolled*. Two seeds per arm; whether 0.7 is a
+resting point or a slow approach to 1 is still open.
+
+## Not done / next
+
+- Start above 0.7 (0.9, 1.0) and run longer, to tell a resting point from a slow climb.
+- Let more of the rule mutate (kernel shells, R) instead of one line between two rules.
+- The 2-channel *mitosis* creature (found/221 #35) and the egg-laying three-channel *egg*
+  (233 #11; dies in our engine at 256², C071 shows its relatives are fragile).
+
+## Files
+
+- `common.py` (torus labelling, catalogue loader), `scout.py` → `scout_N256.jsonl`
+  (8 named dividers, 600 tu), `population.py` → `population.jsonl` (division well, 512², 3000 tu).
+- `record.py` (stores a run as uint8 frames), `tree.py` (tracker + family tree), `film_tree.py`
+  → G029. `interp.py` (the λ line), `growth.py` → `growth.jsonl` (C073), `film_ladder.py` → G030.
+- `replicate3d.py` → `replicate3d.jsonl` (C074, C075), `film3d.py` → G031.
+- `summarize.py` prints every number quoted here. `states/` is gitignored.
+- Round 3: `evolve.py … 512 6000 0.1 0.03` (C110), `chart_evolve.py` → G061, `film_genome.py long` → G060.
+- Round 2: `genome.py` (GenomeLenia), `evolve.py` → `evolve.jsonl` (C090, C091), `invasion.py` →
+  `invasion.jsonl` (C092), `film_genome.py` → G045, G046.
+- Exploration helpers: `peek.py`, `peek3d.py`, `lineage.py` (first tracker, superseded by
+  `tree.py`), `film_lineage.py`, `interp.jsonl` (first λ scan, body counts).
+
+## Therapy toy (C119–C121, population-dynamics round, 2026-11-15)
+
+`therapy.py`: a GenomeLenia tumour from one cell at genome 0.7 (mutation 0.03), 128², treated
+from 40% of carrying mass for 2000 tu with a drug `A ← A (1 − dt κ g)` (fast genomes hit
+hardest): none, constant, or adaptive (off at half the starting burden, on again at the
+starting burden; the Zhang et al. 2017 rule with mass for PSA). Four seeds × κ 0.3–0.6.
+Constant dosing eradicates 0/1/2/4 of 4 as κ rises; survivors end mostly slow (C119).
+Adaptive did better in 2 of 16 pairs, worse in 10, tied 4 (C120). Untreated full tumours keep
+5–33% slow matter (C121): nothing makes slow cells lose in a crowd, which is what adaptive
+therapy needs. Film `film_therapy.py 0 0.5 OUT` (G067, checks every final hash against
+`therapy.jsonl`), chart `chart_therapy.py` (G068), numbers at the end of `summarize.py`.
+Ideas not done: a cost of resistance in a full tissue (e.g. slow genomes take up more room or
+lose matter), tuned thresholds, a resistant clone present before treatment.
+
+
+## Cost of resistance (C122–C124, follow-up, 2026-11-15)
+
+Bobby asked for the missing competition. `therapy.crowding_cost` (off by default, so the C119–C121
+runs and hashes are unchanged) makes matter decay at `dt · c · (1 − g) · crowd` after every step,
+crowd = local mass (Gaussian, 4 px) / carrying density, clipped to 1. Runs: all doses at c 0.1 and
+0.3 for 2000 tu (`therapy_cost.jsonl`), and κ 0.3 at c 0, 0.1, 0.3 for 6000 tu (`therapy_long.jsonl`).
+With the cost, untreated tumours stay sensitive (C122), nothing progresses and constant dosing
+eradicates more (C123). At κ 0.3, constant dosing leaves a small fully resistant remnant that never
+regrows under the drug, while adaptive dosing holds a tumour about four times larger that at
+c 0.3 stays sensitive (C124). The mechanism works; the payoff (a delayed relapse) is missing because
+nothing relapses. Next: let slow matter regrow, or take the remnant off the drug.
+Chart `chart_cost.py` (G069).
+
+## Therapy room round 3 (C125–C128, 2026-11-17)
+
+`therapy2.py` runs the same tumour, drug and cost with a policy that picks which drugs are on each
+step, and adds drug B (`A ← A (1 − dt κB (1 − g))`, hits slow matter). Experiments, all in
+`therapy2.jsonl`: `holiday` (drug A to 2000 tu, then off; 6000 tu; costs 0, 0.1, 0.3), `threshold`
+(adaptive with pause at 0.3/0.5/0.7/0.9 B0; cost 0.3; 4000 tu), `bind` (A, B, A+B, alternate every
+100 tu, steer: B while resistant share > 0.5 until < 0.2; costs 0 and 0.3; 4000 tu). With drug A only,
+`therapy2.run` gives bit-identical results to `therapy.treat` (test).
+
+Findings: off the drug, a cost-0.1 remnant relapses within 50–500 tu and comes back sensitive, a
+cost-0.3 remnant dies out (C125). Pausing deeper keeps the tumour smaller but resistant, pausing
+shallower keeps it sensitive but large (C126). A second drug helps only with a cost of resistance;
+then steering cures 4/4 with drug B on under 2% of the time (C127, C128). Charts `chart_round3.py`
+(G070–G072), film `film_bind.py 0 OUT` (G073).
+
